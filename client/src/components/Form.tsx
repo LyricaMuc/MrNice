@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
 /*
  * Stylings
@@ -36,36 +37,46 @@ const User = {
 };
 
 const Formular = () => {
-    const [value, setValue] = useState(User);
+    const [user, setUser] = useState(User);
+    const history = useHistory();
 
 
     const handleChange = (e: any) => {
-        setValue({...value, [e.target.name]: e.target.value})
+        setUser({...user, [e.target.name]: e.target.value});
     };
 
-    const onSubmit = async (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(value);
+        const response = await fetch('/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+
+        const data = await response.json();
+        console.log(data);
     };
 
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
         <Label htmlFor="firstname">
             Vorname
         </Label>
-        <InputField id="firstname" name="firstname" type="text" onChange={(event) =>handleChange(event)} value={value.firstname}/>
+        <InputField id="firstname" name="firstname" type="text" onChange={(event) =>handleChange(event)} value={user.firstname}/>
         
         <Label htmlFor='lastname'>
             Nachname
         </Label>
-        <InputField id='lastname' name="lastname" type="text" onChange={(event) => handleChange(event)} value={value.lastname}/>
+        <InputField id='lastname' name="lastname" type="text" onChange={(event) => handleChange(event)} value={user.lastname}/>
 
         <Label htmlFor='email'>
             Email
         </Label>
-        <InputField id='email' name="email" type="email" onChange={(event) => handleChange(event)} value={value.email}/>
+        <InputField id='email' name="email" type="email" onChange={(event) => handleChange(event)} value={user.email}/>
 
-        <SubmitButton type="submit" onClick={(e) => onSubmit(e)}>Anmelden</SubmitButton>
+        <SubmitButton type="submit">Anmelden</SubmitButton>
     </Form>
     );
 };
