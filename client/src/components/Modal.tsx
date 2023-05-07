@@ -44,6 +44,7 @@ const CloseButton = styled.button`
     font-weight: bold;
     width: auto;
     cursor: pointer;
+    padding: 0;
 `;
 
 
