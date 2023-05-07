@@ -13,13 +13,17 @@ app.use(bodyParser.json());
 
 // API Routes
 app.post('/user', (req, res) => {
-try {
-    const { firstname, lastname, email } = req.body;
-    console.log(`Hallo ${firstname} ${lastname} mit der Email Adresse ${email}`);
-    res.send({ success: true });
-} catch (error) {
-    console.log(error);
-}
+
+    if (Object.keys(req.body).length === 0) {
+        res.status(400).send({success: false, error: 'Bitte fülle das Formular aus' });
+
+    } else {
+        if (!('firstname' in req.body)) {
+            res.status(400).send({success: false, error: 'Bitte gebe Deinen Vornamen an' });
+        }
+        
+        res.status(200).send({success: true});
+    }
 });
 
 app.listen(port, hostname, () => {

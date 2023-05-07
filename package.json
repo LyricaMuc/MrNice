@@ -3,7 +3,7 @@
     "concurrently": "^8.0.1"
   },
   "scripts": {
-    "fire": "concurrently \"cd server && node server.js\" \"cd client && npm start\""
+    "fire": "concurrently \"cd server && nodemon server.js\" \"cd client && npm start\""
   },
   "dependencies": {
     "cors": "^2.8.5",

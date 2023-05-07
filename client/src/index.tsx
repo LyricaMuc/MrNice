@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import Welcome from './pages/Welcome';
 import { createGlobalStyle } from 'styled-components';
+import Home from './pages/Home';
 
 /*
  * Styling
@@ -16,12 +18,23 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Welcome />
+  }, 
+  {
+    path: "/home",
+    element: <Home />
+  }
+])
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

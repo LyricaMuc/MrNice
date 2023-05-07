@@ -1,6 +1,16 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+
+/*
+ * Types
+*/ 
+
+interface User {
+    firstname?: string;
+    lastname?: string;
+    email?: string;
+}
 
 /*
  * Stylings
@@ -26,19 +36,19 @@ const SubmitButton = styled.button`
     padding: 10px;
 `;
 
+const ErrorText = styled.p`
+    font-size: 11px;
+    color: red;
+`;
+
 /*
  * Component
 */
 
-const User = {
-    firstname: '',
-    lastname: '',
-    email: '',
-};
-
-const Formular = () => {
-    const [user, setUser] = useState(User);
-    const history = useHistory();
+const Formular: React.FC = () => {
+    const [user, setUser] = useState<User>({});
+    const [error, setError] = useState<String>('');
+    const navigate = useNavigate();
 
 
     const handleChange = (e: any) => {
@@ -56,7 +66,12 @@ const Formular = () => {
         });
 
         const data = await response.json();
-        console.log(data);
+
+        if (data.success) {
+            navigate('/home');
+        } else {
+            setError(data.error);
+        }
     };
 
     return (
@@ -64,19 +79,20 @@ const Formular = () => {
         <Label htmlFor="firstname">
             Vorname
         </Label>
-        <InputField id="firstname" name="firstname" type="text" onChange={(event) =>handleChange(event)} value={user.firstname}/>
+        <InputField id="firstname" name="firstname" type="text" onChange={(event) =>handleChange(event)} value={user.firstname || ''}/>
         
         <Label htmlFor='lastname'>
             Nachname
         </Label>
-        <InputField id='lastname' name="lastname" type="text" onChange={(event) => handleChange(event)} value={user.lastname}/>
+        <InputField id='lastname' name="lastname" type="text" onChange={(event) => handleChange(event)}/>
 
         <Label htmlFor='email'>
             Email
         </Label>
-        <InputField id='email' name="email" type="email" onChange={(event) => handleChange(event)} value={user.email}/>
+        <InputField id='email' name="email" type="email" onChange={(event) => handleChange(event)}/>
 
         <SubmitButton type="submit">Anmelden</SubmitButton>
+        {error && <ErrorText>{error}</ErrorText>}
     </Form>
     );
 };
