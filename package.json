@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  },
+  "scripts": {
+    "fire": "concurrently \"cd server && node server.js\" \"cd client && npm start\""
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
