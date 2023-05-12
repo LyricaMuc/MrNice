@@ -10,11 +10,12 @@ import Home from './pages/Home';
 */
 const GlobalStyle = createGlobalStyle`
   body {
-    background: rgba(59, 113, 202, 1);
+    background: #1d3557;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
   }
 `;
 

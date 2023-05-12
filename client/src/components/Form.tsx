@@ -27,13 +27,16 @@ const Label = styled.label`
 
 const InputField = styled.input`
     margin-top: 10px;
+    padding: 5px 0;
 `;
 
 const SubmitButton = styled.button`
+    color: white;
     background: #32de84;
     border: none;
     margin-top: 20px;
     padding: 10px;
+    border-radius: 5px;
 `;
 
 const ErrorText = styled.p`

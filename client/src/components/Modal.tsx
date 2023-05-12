@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { RxCross2 } from 'react-icons/rx'
 
 
 /*
@@ -38,13 +39,8 @@ const ButtonWrapper = styled.div`
     justify-content: flex-end;
 `;
 
-const CloseButton = styled.button`
-    border: none;
-    background: white;
-    font-weight: bold;
-    width: auto;
-    cursor: pointer;
-    padding: 0;
+const CrossIcon = styled(RxCross2)`
+    color: blue;
 `;
 
 
@@ -67,14 +63,11 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
         }
     }, [ref])
 
-
     return (
         <Container className={className}>
             <Wrapper ref={ref}>
                 <ButtonWrapper>
-                <CloseButton onClick={onClose}>
-                    X
-                </CloseButton>
+                <CrossIcon onClick={onClose} />
                 </ButtonWrapper>
                     {children}
             </Wrapper>
